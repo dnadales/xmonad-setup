@@ -2,3 +2,5 @@
 xmonad
 xmonad-contrib
 stack.yaml.lock
+*.hi
+*.o
