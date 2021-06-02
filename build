@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# See: https://github.com/xmonad/xmonad/blob/master/INSTALL.md#tell-xmonad-how-to-recompile-itself
+#
+# Make sure this file is linked in '~/.config/xmonad'
+
+exec stack ghc --  \
+  --make xmonad.hs \
+  -i               \
+  -ilib            \
+  -fforce-recomp   \
+  -main-is main    \
+  -v0              \
+  -o "$1"
