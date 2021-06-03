@@ -5,15 +5,23 @@ import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import XMonad.Layout.ThreeColumns
 
+import XMonad.Hooks.EwmhDesktops
+
+-- Imports needed for Xmobar
+import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.ManageDocks
+
 import System.Exit (exitWith, ExitCode(ExitSuccess))
 
 main :: IO ()
-main = xmonad $ def
-      { modMask    = myModMask
-      , keys       = myKeys
-      , layoutHook = myLayouts
-      }
+main = xmobar myConfig >>= xmonad . ewmh
   where
+    myConfig = def { modMask         = myModMask
+                   , keys            = myKeys
+                   , layoutHook      = myLayouts
+                   , handleEventHook = handleEventHook def <+> docksEventHook
+                   }
+
     myModMask = mod4Mask   -- We use the Super key (a.k.a Windows key) as Mod mask.
 
     -- We remap all the Xmonad default keys.
@@ -23,8 +31,8 @@ main = xmonad $ def
       = let cModMask = modMask conf in
         M.fromList
       $ [ ((cModMask .|. shiftMask, xK_Return), spawn $ Core.terminal conf) -- %! Launch terminal
-        , ((cModMask,               xK_p     ), spawn "dmenu_run") -- %! Launch dmenu
-        , ((cModMask .|. shiftMask, xK_p     ), spawn "gmrun") -- %! Launch gmrun
+        , ((cModMask,               xK_r     ), spawn "dmenu_run") -- %! Launch dmenu
+        , ((cModMask .|. shiftMask, xK_r     ), spawn "gmrun") -- %! Launch gmrun
         , ((cModMask .|. shiftMask, xK_c     ), kill) -- %! Close the focused window
 
         , ((cModMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms

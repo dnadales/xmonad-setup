@@ -54,3 +54,12 @@ In large monitors you might want to add Xft.dpi options in Xresources.
 ```sh
 ln -s ~/github/dnadales/xmonad-setup/.Xresources ~/
 ```
+
+# Xmobar configuration
+
+TODO: We should configure Xmobar in haskell.
+
+```sh
+ln -s $(pwd)/xmobarrc ~/.xmobarrc
+stack install --flag xmobar:with_xft
+```
