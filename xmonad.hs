@@ -87,7 +87,7 @@ main = xmobar myConfig >>= xmonad . ewmh
 
     myLayouts
       =   Tall nmaster delta ratio
-      ||| ThreeColMid 1 (2/100) (38/100)
+      ||| ThreeCol 1 delta (4/10)
       ||| Full
       where
         -- The default number of windows in the master pane
