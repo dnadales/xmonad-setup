@@ -43,21 +43,21 @@ main = xmobar myConfig >>= xmonad . ewmh
         -- move focus up or down the window stack
         , ((cModMask,               xK_Tab   ), windows W.focusDown) -- %! Move focus to the next window
         , ((cModMask .|. shiftMask, xK_Tab   ), windows W.focusUp  ) -- %! Move focus to the previous window
-        , ((cModMask,               xK_t     ), windows W.focusDown) -- %! Move focus to the next window
+        , ((cModMask,               xK_e     ), windows W.focusDown) -- %! Move focus to the next window
         , ((cModMask,               xK_n     ), windows W.focusUp  ) -- %! Move focus to the previous window
         , ((cModMask,               xK_m     ), windows W.focusMaster  ) -- %! Move focus to the master window
 
         -- modifying the window order
         , ((cModMask,               xK_Return), windows W.swapMaster) -- %! Swap the focused window and the master window
-        , ((cModMask .|. shiftMask, xK_j     ), windows W.swapDown  ) -- %! Swap the focused window with the next window
-        , ((cModMask .|. shiftMask, xK_k     ), windows W.swapUp    ) -- %! Swap the focused window with the previous window
+        , ((cModMask,               xK_u     ), windows W.swapDown  ) -- %! Swap the focused window with the next window
+        , ((cModMask,               xK_l     ), windows W.swapUp    ) -- %! Swap the focused window with the previous window
 
         -- resizing the master/slave ratio
         , ((cModMask,               xK_h     ), sendMessage Shrink) -- %! Shrink the master area
-        , ((cModMask,               xK_l     ), sendMessage Expand) -- %! Expand the master area
+        , ((cModMask,               xK_o     ), sendMessage Expand) -- %! Expand the master area
 
         -- floating layer support
-        , ((cModMask,               xK_t     ), withFocused $ windows . W.sink) -- %! Push window back into tiling
+        , ((cModMask,               xK_z     ), withFocused $ windows . W.sink) -- %! Push window back into tiling
 
         -- increase or decrease number of windows in the master area
         , ((cModMask              , xK_comma ), sendMessage (IncMasterN 1)) -- %! Increment the number of windows in the master area
@@ -79,8 +79,10 @@ main = xmobar myConfig >>= xmonad . ewmh
       -- | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
       -- , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
       --
-      [ ((cModMask, xK_a), screenWorkspace 1 >>= flip whenJust (windows . W.view))
-      , ((cModMask, xK_o), screenWorkspace 0 >>= flip whenJust (windows . W.view))
+      [ ((cModMask, xK_s), screenWorkspace 1 >>= flip whenJust (windows . W.view))
+      , ((cModMask, xK_t), screenWorkspace 0 >>= flip whenJust (windows . W.view))
+      , ((cModMask, xK_f), screenWorkspace 1 >>= flip whenJust (windows . W.shift))
+      , ((cModMask, xK_p), screenWorkspace 0 >>= flip whenJust (windows . W.shift))
       ]
 
     myLayouts
