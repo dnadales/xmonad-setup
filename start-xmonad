@@ -31,6 +31,9 @@ xrandr --output eDP-1  --off \
 # when using programs which expect access to the keyring.
 eval $(gnome-keyring-daemon --start)
 
+# Change the default X cursor away from the "X"
+xsetroot -cursor_name left_ptr
+
 # Trick to avoid recompilation on every startup. See
 # https://github.com/xmonad/xmonad/blob/master/INSTALL.md#tell-xmonad-how-to-recompile-itself
 exec $HOME/.local/bin/xmonad
