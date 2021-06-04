@@ -71,6 +71,9 @@ main = xmobar myConfig >>= xmonad . ewmh
         -- quit, or restart
         , ((cModMask .|. shiftMask, xK_q     ), io (exitWith ExitSuccess)) -- %! Quit xmonad
         , ((cModMask              , xK_q     ), spawn "if type xmonad; then xmonad --recompile && xmonad --restart; else xmessage xmonad not in \\$PATH: \"$PATH\"; fi") -- %! Restart xmonad
+
+        -- take a screenshot
+        , ((cModMask, xK_j), spawn "maim --select | xclip -selection clipboard -t image/png")
         ]
       ++
       -- mod-[1..9] %! Switch to workspace N
