@@ -20,6 +20,11 @@ main = xmobar myConfig >>= xmonad . ewmh
                    , keys            = myKeys
                    , layoutHook      = myLayouts
                    , handleEventHook = handleEventHook def <+> docksEventHook
+
+                   -- Border setup.
+                   , borderWidth        = 7
+                   , focusedBorderColor = "#ee46fa"
+                   , normalBorderColor  = "#620169"
                    }
 
     myModMask = mod4Mask   -- We use the Super key (a.k.a Windows key) as Mod mask.
