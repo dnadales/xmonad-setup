@@ -5,12 +5,12 @@ Config {
   bgColor = "black",
   fgColor = "grey",
 
-  -- Position is top left, taking up 94% of screen.
+  -- Position is top left, taking up X% of screen.
   -- You are likely to have to tweak the width here based on the width
   -- of your screen to make it play nicely with stalonetray, which we
   -- want to be taking up the remainer of the space on the right side
   -- of your screen.
-  position = TopW L 94,
+  position = TopW L 90,
 
   -- list of commands which gather information about your system for
   -- presentation in the bar.
