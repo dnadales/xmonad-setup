@@ -63,3 +63,17 @@ TODO: We should configure Xmobar in haskell.
 ln -s $(pwd)/xmobarrc ~/.xmobarrc
 stack install --flag xmobar:with_xft
 ```
+
+# Compose key
+
+Change it temporarily:
+
+```sh
+setxkbmap -option "compose:ralt"
+```
+
+Change it permanently:
+
+```sh
+echo '/usr/bin/setxkbmap -option "compose:ralt"' >> ~/.xsessionrc
+```
