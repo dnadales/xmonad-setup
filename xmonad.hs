@@ -11,6 +11,9 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 
+-- Imports needed to bring volume keys into scope
+import Graphics.X11.ExtraTypes.XF86
+
 import System.Exit (exitWith, ExitCode(ExitSuccess))
 
 main :: IO ()
@@ -99,6 +102,11 @@ main = statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig >>= xmonad . ewmh
         -- Notifications
         , ((cModMask, xK_backslash), spawn "dunstctl close-all")
         , ((cModMask, xK_quoteright), spawn "dunstctl history-pop")
+
+        -- Audio input/output control
+        , ((cModMask, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -1%")
+        , ((cModMask, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +1%")
+        , ((cModMask, xF86XK_AudioMute), spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
         ]
       ++
       -- mod-[1..9] %! Switch to workspace N
