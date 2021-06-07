@@ -74,6 +74,10 @@ main = xmobar myConfig >>= xmonad . ewmh
 
         -- take a screenshot
         , ((cModMask, xK_j), spawn "maim --select | xclip -selection clipboard -t image/png")
+
+        -- Notifications
+        , ((cModMask, xK_backslash), spawn "dunstctl close-all")
+        , ((cModMask, xK_quoteright), spawn "dunstctl history-pop")
         ]
       ++
       -- mod-[1..9] %! Switch to workspace N

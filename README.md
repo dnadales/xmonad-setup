@@ -40,6 +40,13 @@ ln -s $(pwd)/xmonad.hs ~/.xmonad/
 ln -s $(pwd)/start-xmonad ~/.xmonad/
 ```
 
+# Desktop notifications
+
+Install dunst.
+
+For notifications to work on chrome you need to enable the native notifications
+flag.
+
 # Multiple monitors
 
 You might need to setup the displays using xrandr. There's a visual

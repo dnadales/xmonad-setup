@@ -31,6 +31,9 @@ xrandr --output eDP-1  --off \
 # when using programs which expect access to the keyring.
 eval $(gnome-keyring-daemon --start)
 
+# Notifications daemomn
+dunst &
+
 # Change the default X cursor away from the "X"
 xsetroot -cursor_name left_ptr
 
