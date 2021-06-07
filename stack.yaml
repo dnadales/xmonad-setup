@@ -38,6 +38,8 @@ extra-deps:
 - github: xmonad/X11
   commit: 46bc48c08b0d1f4f682e6730983f789883f4db78
 
+- netlink-1.1.1.0@sha256:d83424b5ba9921191449e4b1f53c7cba7f4375f2c55a9b737c77e982e1f40d00,3689
+
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a

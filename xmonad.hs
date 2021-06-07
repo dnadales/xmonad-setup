@@ -14,7 +14,7 @@ import XMonad.Hooks.ManageDocks
 import System.Exit (exitWith, ExitCode(ExitSuccess))
 
 main :: IO ()
-main = xmobar myConfig >>= xmonad . ewmh
+main = statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig >>= xmonad . ewmh
   where
     myConfig = def { modMask         = myModMask
                    , keys            = myKeys
@@ -23,9 +23,30 @@ main = xmobar myConfig >>= xmonad . ewmh
 
                    -- Border setup.
                    , borderWidth        = 7
-                   , focusedBorderColor = "#ee46fa"
-                   , normalBorderColor  = "#620169"
+                   , focusedBorderColor = purple
+                   , normalBorderColor  = darkPurple
                    }
+
+    toggleStrutsKey XConfig{ modMask = m } = (m, xK_b)
+
+    purple     = "#ee46fa"
+    darkPurple = "#620169"
+
+    myXmobarPP = def
+      { ppSep             = " | "
+      , ppTitleSanitize   = xmobarStrip
+      , ppTitle           = fPurple
+      , ppCurrent         = wrap (fRed "[") (fRed "]")
+      , ppHidden          = fWhite . wrap " " ""
+      , ppUrgent          = fRed . wrap (fYellow "!") (fYellow "!")
+      }
+      where
+        -- String formatters for xmobar
+        fMagenta = xmobarColor "#ff79c6" ""
+        fWhite   = xmobarColor "#f8f8f2" ""
+        fYellow  = xmobarColor "#f1fa8c" ""
+        fRed     = xmobarColor "#ff5555" ""
+        fPurple  = xmobarColor purple ""
 
     myModMask = mod4Mask   -- We use the Super key (a.k.a Windows key) as Mod mask.
 

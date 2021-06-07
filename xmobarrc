@@ -42,6 +42,17 @@ Config {
       "-l", "red"
     ] 10,
 
+    Run DiskU [("/", "<usedp>%") ]
+                  ["-L", "20", "-H", "95", "-m", "1", "-p", "3",
+                   "--high", "#a0522d",
+                   "--low", "#2f4f4f"] 20,
+
+    Run CoreTemp ["-t", "Temp:<core0> <core1> <core2> <core3> <core4> C",
+               "-L", "40", "-H", "60",
+               "-l", "lightblue", "-n", "gray90", "-h", "red"] 50,
+
+    Run Wireless "wlp2s0" ["-t", "<essid> <quality>"] 10,
+
     -- This line tells xmobar to read input from stdin. That's how we
     -- get the information that xmonad is sending it for display.
     Run StdinReader
@@ -56,5 +67,5 @@ Config {
 
    -- Overall template for the layout of the xmobar contents. Note that
    -- space is significant and can be used to add padding.
-   template = "%StdinReader% }{  <fc=#e6744c>%date%</fc> | %battery% | %cpu% | %memory% "
+   template = "%StdinReader% }{  %date% | %battery% | %cpu% | %memory% | %disku% | %coretemp% | %wlp2s0wi% "
 }
