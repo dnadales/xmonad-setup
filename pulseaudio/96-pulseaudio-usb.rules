@@ -1,0 +1,1 @@
+ATTRS{idVendor}=="046d", ATTRS{idProduct}=="0ab7", RUN+="/usr/local/bin/relocate-audio-devices.sh"

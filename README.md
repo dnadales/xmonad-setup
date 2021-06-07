@@ -84,3 +84,7 @@ Change it permanently:
 ```sh
 echo '/usr/bin/setxkbmap -option "compose:ralt"' >> ~/.xsessionrc
 ```
+
+# Pulse audio
+
+sudo cp pulseaudio/relocate-audio-devices.sh /usr/local/bin
