@@ -53,7 +53,7 @@ You might need to setup the displays using xrandr. There's a visual
 configuration tool that creates the xrand command in a shell script.
 
 ```sh
-
+arandr
 ```
 
 In large monitors you might want to add Xft.dpi options in Xresources.
