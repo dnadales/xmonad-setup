@@ -4,23 +4,37 @@ import qualified XMonad.Core as Core
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.TwoPane
+-- TODO: GHC can't find 'TwoPanePersistent'. Figure out why and replace
+-- 'Tall' by 'TwoPanePersistent'
+-- import XMonad.Layout.TwoPanePersistent
 
 import XMonad.Hooks.EwmhDesktops
 
--- Imports needed for Xmobar
+-- Xmobar support
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 
--- Imports needed to bring volume keys into scope
+-- Bring volume key codes into scope
 import Graphics.X11.ExtraTypes.XF86
+
+-- 2D window navigation
+import XMonad.Actions.Navigation2D
+
 
 import System.Exit (exitWith, ExitCode(ExitSuccess))
 
 main :: IO ()
 main = statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig >>= xmonad . ewmh
   where
-    myConfig = def { modMask         = myModMask
+    myConfig = navigation2D def
+                            (xK_u, xK_n, xK_e, xK_i)
+                            [ (myModMask              , windowGo  )
+                            , (myModMask .|. shiftMask, windowSwap)
+                            ]
+                            True
+              $ baseConfig
+
+    baseConfig = def { modMask         = myModMask
                    , keys            = myKeys
                    , layoutHook      = myLayouts
                    , handleEventHook = handleEventHook def <+> docksEventHook
@@ -73,14 +87,15 @@ main = statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig >>= xmonad . ewmh
         -- move focus up or down the window stack
         , ((cModMask,               xK_Tab   ), windows W.focusDown) -- %! Move focus to the next window
         , ((cModMask .|. shiftMask, xK_Tab   ), windows W.focusUp  ) -- %! Move focus to the previous window
-        , ((cModMask,               xK_e     ), windows W.focusDown) -- %! Move focus to the next window
-        , ((cModMask,               xK_n     ), windows W.focusUp  ) -- %! Move focus to the previous window
+        --, ((cModMask,               xK_e     ), windows W.focusDown) -- %! Move focus to the next window
+        -- , ((cModMask,               xK_n     ), windows W.focusUp  ) -- %! Move focus to the previous window
         , ((cModMask,               xK_m     ), windows W.focusMaster  ) -- %! Move focus to the master window
 
         -- modifying the window order
         , ((cModMask,               xK_Return), windows W.swapMaster) -- %! Swap the focused window and the master window
-        , ((cModMask,               xK_u     ), windows W.swapDown  ) -- %! Swap the focused window with the next window
-        , ((cModMask,               xK_l     ), windows W.swapUp    ) -- %! Swap the focused window with the previous window
+        -- We configure these through 'XMonad.Actions.Navigation2D'
+        -- , ((cModMask,               xK_u     ), windows W.swapDown  ) -- %! Swap the focused window with the next window
+        -- , ((cModMask,               xK_l     ), windows W.swapUp    ) -- %! Swap the focused window with the previous window
 
         -- resizing the master/slave ratio
         , ((cModMask,               xK_h     ), sendMessage Shrink) -- %! Shrink the master area
@@ -121,14 +136,14 @@ main = statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig >>= xmonad . ewmh
       -- | (key, sc) <- zip [xK_w, xK_e, xK_r] [0..]
       -- , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
       --
-      [ ((cModMask, xK_s), screenWorkspace 1 >>= flip whenJust (windows . W.view))
-      , ((cModMask, xK_t), screenWorkspace 0 >>= flip whenJust (windows . W.view))
-      , ((cModMask, xK_f), screenWorkspace 1 >>= flip whenJust (windows . W.shift))
-      , ((cModMask, xK_p), screenWorkspace 0 >>= flip whenJust (windows . W.shift))
+      [ ((cModMask, xK_l), screenWorkspace 1 >>= flip whenJust (windows . W.view))
+      , ((cModMask, xK_y), screenWorkspace 0 >>= flip whenJust (windows . W.view))
+      , ((cModMask .|. shiftMask, xK_l), screenWorkspace 1 >>= flip whenJust (windows . W.shift))
+      , ((cModMask .|. shiftMask, xK_y), screenWorkspace 0 >>= flip whenJust (windows . W.shift))
       ]
 
     myLayouts
-      =   TwoPane delta (1/2)
+      =   Tall     1 delta (1/2)
       ||| ThreeCol 1 delta (4/10)
       ||| Full
       where
