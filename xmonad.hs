@@ -4,6 +4,7 @@ import qualified XMonad.Core as Core
 import qualified Data.Map as M
 import qualified XMonad.StackSet as W
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.TwoPane
 
 import XMonad.Hooks.EwmhDesktops
 
