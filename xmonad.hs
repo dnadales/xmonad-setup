@@ -127,12 +127,10 @@ main = statusBar "xmobar" myXmobarPP toggleStrutsKey myConfig >>= xmonad . ewmh
       ]
 
     myLayouts
-      =   Tall nmaster delta ratio
+      =   TwoPane delta (1/2)
       ||| ThreeCol 1 delta (4/10)
       ||| Full
       where
-        -- The default number of windows in the master pane
-        nmaster = 1
         -- Default proportion of screen occupied by master pane
         ratio   = 1/2
         -- Percent of screen to increment by when resizing panes
