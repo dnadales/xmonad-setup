@@ -62,6 +62,29 @@ In large monitors you might want to add Xft.dpi options in Xresources.
 ln -s ~/github/dnadales/xmonad-setup/.Xresources ~/
 ```
 
+## Hot plugging multiple monitors
+
+This can be easily managed with `autorandr`, although it requires some initial
+setup using `xrandr` (or `arandr`).
+
+First configure the monitors using `xrandr` and then save the configuration by
+running:
+
+```sh
+autorandr --save $SOME_NAME
+```
+
+This will list the detected configuration. E.g.:
+
+```text
+two-displays (detected) (current)
+```
+
+Plug and/or unplug monitors, configure them with `xrand`, and finally save the
+configuration as described above. Once all desired configurations are saved the
+system will automatically switch between them when monitors are plugged and/or
+unplugged.
+
 # Xmobar configuration
 
 TODO: We should configure Xmobar in haskell.
